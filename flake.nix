@@ -13,7 +13,10 @@
           inherit system;
           overlays = [
             (final: prev: {
-              stJD = "https://";
+              stJD = prev.st.overrideAttrs (oldAttrs: rec {
+                version = "master";
+                src = ./.;
+              });
             })
           ];
         };
@@ -29,8 +32,6 @@
         packages.stJD = pkgs.stJD;
         defaultApp = apps.st;
         defaultPackage = pkgs.stJD;
-
-
       }
     );
 }
